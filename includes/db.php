@@ -1,15 +1,16 @@
 <?php
 
 $connection = mysqli_connect(
-    "localhost",
-    "formation",
-    "PassPhp",
-    "phpdeux"
+    'localhost',
+    'formation',
+    'PassPhp',
+    'phpdeux'
 );
 
-    if (!$connection) {
-        die('<strong> impossible de se connecter</strong><br>'.
-        mysqli_connect_error());
-    } else {
-        echo "<strong> connexion reussie</strong><br>";
-    }
+if (!$connection) {
+    die(
+        '<strong> Impossible de se connecter, veuillez revoir les accés</strong><br>'
+        . mysqli_connect_error());
+} else {
+    echo '<strong> Super ! j\'ai réussi à me connecter à ma base de donnée </strong><br>';
+}

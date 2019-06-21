@@ -1,82 +1,113 @@
+<?php
+
+$errorLogin = false;
+
+if (
+        isset($_SESSION) &&
+        isset($_SESSION["flashbag"]["error"]) &&
+        isset($_SESSION["flashbag"]["error"]["login"])
+) {
+    $errorLogin = $_SESSION["flashbag"]["error"]["login"];
+    unset($_SESSION["flashbag"]["error"]["login"]);
+}
+?>
 
 <?php if (isset($_SESSION["security"])): ?>
-    <a href="security/profile.php">modifier le profil</a>
+    <a href="/index.php/security/profile">Modifier le profil</a>
 <?php endif; ?>
 
 <?php if (isset($_SESSION["security"])): ?>
-    <form action="security/logout.php" method="post">
-        <input type="submit" value="deconnexion" name="deconnexion">
+    <form action="/index.php/security/logout" method="post">
+        <input type="submit" value="Logout">
     </form>
 <?php endif; ?>
-
-
 
 <?php if (isset($_SESSION["security"])): ?>
     <p>Bienvenue <?= $_SESSION["security"]["nom"]; ?></p>
 <?php endif; ?>
 
 <?php if (!isset($_SESSION["security"])): ?>
-
-    <form action="security/login.php" method="post">
-        <div>
-            <?php if ($errorlogin): ?>
-                <div>
-                    <p>erreur connexion</p>
-                </div>
-            <?php endif; ?>
-            <label for="login-email">email</label>
-            <input type="text" id="login-email" name="email" value="<?= $errorlogin; ?>"><br/>
-
+    <form action="/index.php/security/login" method="post">
+        <?php if ($errorLogin): ?>
             <div>
-                <label for="login-pass">nom </label>
-                <input type="text" id="login-pass"  name="pass"> <br/><br/>
+                <p>Erreur connexion</p>
             </div>
-
-            <input type="submit">
-
-
+        <?php endif; ?>
+        <div>
+            <label for="login-email">Email</label>
+            <input type="text" id="login-email" name="email" value="<?= $errorLogin; ?>">
+        </div>
+        <div>
+            <label for="login-pass">Pass</label>
+            <input type="text" id="login-pass" name="pass">
+        </div>
+        <input type="submit">
     </form>
+    <hr>
+    <hr>
+    <hr>
+    <form action="/index.php/security/signup" method="post">
+        <legend>Create Account</legend>
 
-    <form method="post" action="">
         <div>
-            <label for="nom">nom </label>
-            <input type="text" id="nom" name="nom"><br/>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom">
         </div>
         <div>
-            <label for="prenom">prenom </label>
-            <input type="text" id="prenom" name="prenom"><br/>
+            <label for="prenom">Prenom</label>
+            <input type="text" id="prenom" name="prenom">
         </div>
         <div>
-            <label for="email">email</label>
-            <input type="text" id="email" name="email" ><br/>
-            <div>
-                <label for="password">password</label>
-                <input type="text" id="password"  name="password"> <br/>
-            </div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+        </div>
+        <div>
+            <label for="pass">Pass</label>
+            <input type="text" id="pass" name="pass">
+        </div>
 
-            <input type="submit">
+        <input type="submit">
     </form>
 <?php endif; ?>
+<hr>
+
+<?php require_once "includes/GetUsers.php"; ?>
+
+<table>
+    <thead>
+        <tr>
+            <th>nom</th>
+            <th>code</th>
+            <th>cree par</th>
+
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($)
+    </tbody>
+</table>
+
+
+
 <table>
     <thead>
     <tr>
         <th>id</th>
         <th>nom</th>
-        <th>prenom</th>
-        <th>email</th>
-        <th>pass</th>
+        <th>Prenom</th>
+        <th>Email</th>
+        <th>Pass</th>
     </tr>
-
     </thead>
-    <tbody>
-    <?php foreach($users as $user): ?>
-        <tr>
 
-            <th><?= $user["id"]; ?></th>
-            <th><?= $user["nom"]; ?></th>
-            <th><?= $user["prenom"]; ?></th>
-            <th><?= $user["email"]; ?></th>
-            <th><?= $user["pass"]; ?></th>
+    <tbody>
+    <?php foreach ($users as $user): ?>
+        <tr>
+            <td><?= $user["id"]; ?></td>
+            <td><?= $user["nom"]; ?></td>
+            <td><?= $user["prenom"]; ?></td>
+            <td><?= $user["email"]; ?></td>
+            <td><?= $user["pass"]; ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

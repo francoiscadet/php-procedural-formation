@@ -83,7 +83,7 @@ if (
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($)
+
     </tbody>
 </table>
 
